@@ -11,9 +11,7 @@ export default function DefaultLayout({
     <div className="relative flex flex-col min-h-screen">
       <Navbar />
       {/* main sin padding para permitir que el carrusel ocupe toda la ventana */}
-      <div className="absolute inset-0 z-0">
-        {children}
-      </div>
+      <div className="absolute inset-0 z-0">{children}</div>
       <Footer />
     </div>
   );

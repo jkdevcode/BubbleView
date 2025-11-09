@@ -21,9 +21,9 @@ export const Navbar = () => {
 
   return (
     <HeroUINavbar
+      className="z-50 top-0 bg-black/20 backdrop-blur-sm transition-colors duration-200"
       maxWidth="xl"
       position="sticky"
-      className="z-50 top-0 bg-black/20 backdrop-blur-sm transition-colors duration-200"
     >
       <NavbarContent className="basis-1/5 sm:basis-full" justify="start">
         <NavbarBrand className="gap-3 max-w-fit">

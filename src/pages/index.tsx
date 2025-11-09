@@ -7,7 +7,6 @@ function index() {
       <DefaultLayout>
         {/* <h1>Hi 👻</h1> */}
         <DynamicCarousel />
-
       </DefaultLayout>
     </>
   );

@@ -22,12 +22,7 @@ export const Logo: React.FC<IconSvgProps> = ({
       stroke-linejoin="round"
     />
     <g id="SVGRepo_iconCarrier">
-      <rect
-        className="bg-black/20"
-        height="60"
-        rx="10"
-        width="60"
-      />
+      <rect className="bg-black/20" height="60" rx="10" width="60" />
       <path
         className="fill-[#f1f3f4] dark:fill-neutral-800"
         d="M30,6.91,10,18.45v4L30,34l12-6.93V37.26L30,44.19,17.72,37.1,10,41.55,30,53.09l12-6.92,8-4.62V18.45Zm0,17.278-7.091-4.094L30,16l7.091,4.094Z"

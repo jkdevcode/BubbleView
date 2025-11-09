@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+
 import { slideImages, slideInfo } from "../mocks/mock-carousel";
 
 interface Slide {
@@ -23,6 +24,7 @@ export default function CinematicCarousel() {
   useEffect(() => {
     slides.forEach((s) => {
       const img = new (window as any).Image();
+
       img.src = s.image;
     });
   }, []);
@@ -36,7 +38,9 @@ export default function CinematicCarousel() {
       if (e.key === "ArrowRight") next();
       if (e.key === "ArrowLeft") prev();
     };
+
     window.addEventListener("keydown", handleKey);
+
     return () => window.removeEventListener("keydown", handleKey);
   }, []);
 
@@ -46,7 +50,9 @@ export default function CinematicCarousel() {
       if (e.deltaY > 0) next();
       else if (e.deltaY < 0) prev();
     };
+
     window.addEventListener("wheel", handleWheel);
+
     return () => window.removeEventListener("wheel", handleWheel);
   }, []);
 
@@ -57,11 +63,11 @@ export default function CinematicCarousel() {
       <AnimatePresence mode="wait">
         <motion.img
           // usar la URL como key para asegurar que la animación responda al cambio de imagen
+          key={slides[index].image}
           animate={{ opacity: 1, scale: 1 }}
           className="absolute inset-0 w-full h-full object-cover brightness-90 dark:brightness-75 z-0"
           exit={{ opacity: 0, scale: 1.05 }}
           initial={{ opacity: 0, scale: 1.1 }}
-          key={slides[index].image}
           src={slides[index].image}
           transition={{ duration: 0.8, ease: "easeInOut" }}
         />
@@ -74,19 +80,19 @@ export default function CinematicCarousel() {
       <div className="absolute inset-y-0 left-0 z-20 flex flex-col justify-center pl-16 pr-8 max-w-lg py-20">
         <motion.h1
           key={slides[index].title}
-          initial={{ y: 30, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
-          transition={{ duration: 0.6 }}
           className="text-5xl font-bold mb-4 drop-shadow-lg text-black dark:text-white"
+          initial={{ y: 30, opacity: 0 }}
+          transition={{ duration: 0.6 }}
         >
           {slides[index].title}
         </motion.h1>
         <motion.p
           key={slides[index].description}
-          initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          transition={{ delay: 0.3 }}
           className="text-lg leading-relaxed text-gray-700 dark:text-gray-300"
+          initial={{ opacity: 0 }}
+          transition={{ delay: 0.3 }}
         >
           {slides[index].description}
         </motion.p>
@@ -101,8 +107,7 @@ export default function CinematicCarousel() {
       >
         {/* mostrar prev, current, next */}
         {[-1, 0, 1].map((offset) => {
-          const previewIndex =
-            (index + offset + slides.length) % slides.length;
+          const previewIndex = (index + offset + slides.length) % slides.length;
           const isCurrent = offset === 0;
           const rotation = offset * 18; // menos rotación para más sutileza
           const zDistance = offset * -80;
@@ -110,27 +115,29 @@ export default function CinematicCarousel() {
           const borderClass = isCurrent
             ? "ring-4 ring-black/80 border-black/30 dark:ring-white/80 dark:border-white/30"
             : "border-4 border-black/20 dark:border-white/20";
-          const shadowClass = isCurrent ? "shadow-lg dark:shadow-2xl" : "shadow-sm dark:shadow-lg";
+          const shadowClass = isCurrent
+            ? "shadow-lg dark:shadow-2xl"
+            : "shadow-sm dark:shadow-lg";
 
           return (
             <motion.div
               key={slides[previewIndex].image}
               layout
-              initial={{ opacity: 0, scale: 0.85 }}
               animate={{
                 opacity: 1,
                 scale: baseScale,
                 rotateY: rotation,
                 z: zDistance,
               }}
-              transition={{ duration: 0.5, ease: "easeInOut" }}
               className={`w-32 h-32 rounded-full overflow-hidden ${borderClass} ${shadowClass} hover:scale-105 transition-transform cursor-pointer`}
+              initial={{ opacity: 0, scale: 0.85 }}
+              transition={{ duration: 0.5, ease: "easeInOut" }}
               onClick={() => setIndex(previewIndex)}
             >
               <img
-                src={slides[previewIndex].image}
                 alt={slides[previewIndex].title}
                 className="object-cover w-full h-full"
+                src={slides[previewIndex].image}
               />
             </motion.div>
           );
@@ -142,11 +149,11 @@ export default function CinematicCarousel() {
         {slides.map((_, i) => (
           <motion.div
             key={i}
-            className={`w-3 h-3 rounded-full ${i === index ? "bg-black dark:bg-white" : "bg-black/30 dark:bg-white/30"}`}
             animate={{
               scale: i === index ? 1.4 : 1,
               opacity: i === index ? 1 : 0.5,
             }}
+            className={`w-3 h-3 rounded-full ${i === index ? "bg-black dark:bg-white" : "bg-black/30 dark:bg-white/30"}`}
             transition={{ duration: 0.3 }}
           />
         ))}
