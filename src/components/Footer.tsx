@@ -9,7 +9,7 @@ const Footer = () => {
 
   return (
     <motion.footer
-      className="bg-white dark:bg-black w-full flex items-center justify-center py-3"
+      className="fixed left-0 bottom-0 z-[500] w-full flex items-center justify-center py-2"
       initial="hidden"
       variants={fadeIn("up", 0.2)}
       whileInView="show"
@@ -17,7 +17,7 @@ const Footer = () => {
       <Link
         isExternal
         className="flex items-center gap-1 text-current"
-        href="https://heroui.com"
+        href="https://josedvargas.vercel.app"
         title={t("heroui-com-homepage")}
       >
         <span className="text-default-600">

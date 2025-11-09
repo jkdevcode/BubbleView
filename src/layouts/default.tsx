@@ -1,6 +1,6 @@
 import type React from "react";
 
-/* import { Navbar } from "@/components/navbar"; */
+import { Navbar } from "@/components/navbar";
 import Footer from "@/components/Footer";
 export default function DefaultLayout({
   children,
@@ -9,10 +9,11 @@ export default function DefaultLayout({
 }) {
   return (
     <div className="relative flex flex-col min-h-screen">
-      {/* <Navbar /> */}
-      <main className="container mx-auto max-w-7xl px-6 flex-grow pt-16">
+      <Navbar />
+      {/* main sin padding para permitir que el carrusel ocupe toda la ventana */}
+      <div className="absolute inset-0 z-0">
         {children}
-      </main>
+      </div>
       <Footer />
     </div>
   );

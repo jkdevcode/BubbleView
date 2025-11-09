@@ -23,7 +23,7 @@ export const Logo: React.FC<IconSvgProps> = ({
     />
     <g id="SVGRepo_iconCarrier">
       <rect
-        className="fill-white dark:fill-black"
+        className="bg-black/20"
         height="60"
         rx="10"
         width="60"
