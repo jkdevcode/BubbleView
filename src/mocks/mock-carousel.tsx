@@ -1,9 +1,9 @@
 export const slideImages = [
-  "https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=1600&q=80",
-  "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=1600&q=80",
-  "https://images.unsplash.com/photo-1519681393784-d120267933ba?auto=format&fit=crop&w=1600&q=80",
-  "https://images.unsplash.com/photo-1549880338-65ddcdfd017b?auto=format&fit=crop&w=1600&q=80",
-  "https://images.unsplash.com/photo-1469474968028-56623f02e42e?auto=format&fit=crop&w=1600&q=80",
+  "imgs/Lirio oriental.jpg",
+  "imgs/Lirio Asiático.jpg",
+  "imgs/Lirio de Agua.jpg",
+  "imgs/Lirio Tigre (Lilium lancifolium).jpg",
+  "imgs/Lirio Blanco (Lilium candidum).jpg",
 ];
 
 export const slideInfo = [
