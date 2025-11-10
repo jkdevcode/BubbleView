@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-
 import { slideImages, slideInfo } from "../mocks/mock-carousel";
 
 interface Slide {
@@ -20,11 +19,9 @@ const slides: Slide[] = slideImages.slice(0, 5).map((img, i) => ({
 export default function CinematicCarousel() {
   const [index, setIndex] = useState(0);
 
-  // Preload images to avoid mismatch between main image and thumbnails
   useEffect(() => {
     slides.forEach((s) => {
-      const img = new (window as any).Image();
-
+      const img = new Image();
       img.src = s.image;
     });
   }, []);
@@ -32,92 +29,109 @@ export default function CinematicCarousel() {
   const next = () => setIndex((i) => (i + 1) % slides.length);
   const prev = () => setIndex((i) => (i - 1 + slides.length) % slides.length);
 
-  // Control por teclado
   useEffect(() => {
-    const handleKey = (e: globalThis.KeyboardEvent) => {
+    const handleKey = (e: KeyboardEvent) => {
       if (e.key === "ArrowRight") next();
       if (e.key === "ArrowLeft") prev();
     };
-
     window.addEventListener("keydown", handleKey);
-
     return () => window.removeEventListener("keydown", handleKey);
   }, []);
 
-  // Control por scroll o swipe
   useEffect(() => {
-    const handleWheel = (e: globalThis.WheelEvent) => {
+    const handleWheel = (e: WheelEvent) => {
       if (e.deltaY > 0) next();
       else if (e.deltaY < 0) prev();
     };
-
     window.addEventListener("wheel", handleWheel);
-
     return () => window.removeEventListener("wheel", handleWheel);
   }, []);
 
-  return (
-    // volver a ocupar toda la ventana para que la imagen quede bajo navbar/footer
-    <div className="relative w-full h-screen overflow-hidden text-white">
-      {/* Fondo dinámico */}
+ return (
+    <div
+      className="relative w-full h-[100dvh] md:h-screen overflow-hidden text-black dark:text-white"
+    >
+      {/* Fondo cinematográfico con animación */}
       <AnimatePresence mode="wait">
         <motion.img
-          // usar la URL como key para asegurar que la animación responda al cambio de imagen
           key={slides[index].image}
-          animate={{ opacity: 1, scale: 1 }}
-          className="absolute inset-0 w-full h-full object-cover brightness-90 dark:brightness-75 z-0"
-          exit={{ opacity: 0, scale: 1.05 }}
-          initial={{ opacity: 0, scale: 1.1 }}
+          initial={{ opacity: 0, scale: 1.08, filter: "blur(10px) saturate(80%)" }}
+          animate={{
+            opacity: 1,
+            scale: 1,
+            filter: "blur(0px) saturate(100%) brightness(1)",
+          }}
+          exit={{ opacity: 0, scale: 1.05, filter: "blur(8px) saturate(90%)" }}
+          transition={{
+            duration: 1,
+            ease: [0.4, 0, 0.2, 1],
+          }}
           src={slides[index].image}
-          transition={{ duration: 0.8, ease: "easeInOut" }}
+          className="absolute inset-0 w-full h-full object-cover z-0"
         />
       </AnimatePresence>
 
-      {/* Capa de oscurecimiento (por encima de la imagen, por debajo del contenido) */}
-      <div className="absolute inset-0 bg-gradient-to-r from-white/10 via-white/5 to-transparent dark:from-black/10 dark:via-black/5 dark:to-transparent z-10" />
+      {/* Glow ambiental suave */}
+      <div className="absolute inset-0 z-10 overflow-hidden pointer-events-none">
+        <motion.div
+          className="absolute w-[600px] h-[600px] rounded-full bg-white/5 blur-3xl"
+          animate={{
+            x: [0, 200, -150, 0],
+            y: [0, -100, 150, 0],
+            opacity: [0.2, 0.4, 0.3, 0.2],
+          }}
+          transition={{
+            duration: 25,
+            repeat: Infinity,
+            ease: "easeInOut",
+          }}
+        />
+      </div>
 
-      {/* Texto principal (por encima del overlay) */}
-      <div className="absolute inset-y-0 left-0 z-20 flex flex-col justify-center pl-16 pr-8 max-w-lg py-20">
+      {/* Overlay adaptable (con variantes para modo claro/oscuro) */}
+      <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-black/20 to-transparent dark:from-black/70 dark:via-black/40 dark:to-transparent z-10 md:bg-gradient-to-r md:from-black/60 md:via-black/40 md:to-transparent" />
+
+      {/* Texto principal */}
+      <div className="absolute inset-x-0 bottom-34 md:inset-y-0 md:left-0 z-20 flex flex-col justify-center items-center md:items-start text-center md:text-left px-6 md:pl-16 md:pr-8 py-10 md:max-w-lg">
+        {/* <div className="absolute inset-x-0 top-1/2 -translate-y-1/2 md:inset-y-0 md:left-0 z-20 flex flex-col justify-center items-center md:items-start text-center md:text-left px-6 md:pl-16 md:pr-8 py-10 md:max-w-lg"> */}
         <motion.h1
           key={slides[index].title}
           animate={{ y: 0, opacity: 1 }}
-          className="text-5xl font-bold mb-4 drop-shadow-lg text-black dark:text-white"
           initial={{ y: 30, opacity: 0 }}
-          transition={{ duration: 0.6 }}
+          transition={{ duration: 0.7 }}
+          className="text-3xl sm:text-4xl md:text-5xl font-bold mb-3 md:mb-4 drop-shadow-lg text-black dark:text-white"
         >
           {slides[index].title}
         </motion.h1>
+
         <motion.p
           key={slides[index].description}
           animate={{ opacity: 1 }}
-          className="text-lg leading-relaxed text-gray-700 dark:text-gray-300"
           initial={{ opacity: 0 }}
           transition={{ delay: 0.3 }}
+          className="text-base sm:text-lg leading-relaxed text-gray-700 dark:text-gray-300"
         >
           {slides[index].description}
         </motion.p>
       </div>
 
-      {/* Previsualizaciones rotando en 3D */}
+      {/* Miniaturas con efecto 3D mejorado (se ajusta bottom para safe-area) */}
       <div
-        className="absolute right-10 top-1/2 translate-y-[-50%] mt-16 flex flex-col items-center gap-6 z-20"
-        style={{
-          perspective: "1000px",
-        }}
+        className="absolute pb-5 z-20 flex justify-center md:flex-col md:right-10 md:top-1/2 md:translate-y-[-50%] w-full md:w-auto gap-4 md:gap-6"
+        style={{ perspective: "1000px", bottom: "calc(env(safe-area-inset-bottom, 0px) + 3rem)" }}
       >
-        {/* mostrar prev, current, next */}
         {[-1, 0, 1].map((offset) => {
           const previewIndex = (index + offset + slides.length) % slides.length;
           const isCurrent = offset === 0;
-          const rotation = offset * 18; // menos rotación para más sutileza
+          const rotation = offset * 18;
           const zDistance = offset * -80;
-          const baseScale = isCurrent ? 1.18 : 0.88;
+          const baseScale = isCurrent ? 1.1 : 0.85;
           const borderClass = isCurrent
-            ? "ring-4 ring-black/80 border-black/30 dark:ring-white/80 dark:border-white/30"
-            : "border-4 border-black/20 dark:border-white/20";
+            ? "ring-2 ring-black/10 dark:ring-white/80 border-black/20 dark:border-white/30"
+            : "border-2 border-black/10 dark:border-white/20";
           const shadowClass = isCurrent
-            ? "shadow-lg dark:shadow-2xl"
-            : "shadow-sm dark:shadow-lg";
+            ? "shadow-lg"
+            : "shadow-sm opacity-80";
 
           return (
             <motion.div
@@ -128,32 +142,52 @@ export default function CinematicCarousel() {
                 scale: baseScale,
                 rotateY: rotation,
                 z: zDistance,
+                boxShadow: isCurrent
+                  ? "0 0 20px rgba(255,255,255,0.6)"
+                  : "0 0 8px rgba(255,255,255,0.2)",
               }}
-              className={`w-32 h-32 rounded-full overflow-hidden ${borderClass} ${shadowClass} hover:scale-105 transition-transform cursor-pointer`}
-              initial={{ opacity: 0, scale: 0.85 }}
-              transition={{ duration: 0.5, ease: "easeInOut" }}
+              whileHover={{
+                scale: 1.12,
+                rotateY: rotation + 3,
+                boxShadow: "0 0 25px rgba(255,255,255,0.8)",
+                transition: { duration: 0.3 },
+              }}
+              whileTap={{ scale: 1.05 }}
+              transition={{
+                duration: 0.6,
+                ease: [0.43, 0.13, 0.23, 0.96],
+              }}
+              className={`w-20 h-20 sm:w-24 sm:h-24 rounded-full overflow-hidden ${borderClass} ${shadowClass} cursor-pointer relative group`}
               onClick={() => setIndex(previewIndex)}
             >
               <img
                 alt={slides[previewIndex].title}
-                className="object-cover w-full h-full"
+                className="object-cover w-full h-full transition-all duration-500 group-hover:brightness-110 group-hover:scale-105"
                 src={slides[previewIndex].image}
               />
+              {/* Glow circular interno */}
+              <div className="absolute inset-0 rounded-full bg-gradient-to-tr from-white/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
             </motion.div>
           );
         })}
       </div>
 
-      {/* Indicador inferior */}
-      <div className="absolute bottom-12 w-full flex justify-center gap-3 z-20">
+      {/* Indicadores inferiores (ajustados para safe-area en móviles) */}
+      <div
+        className="absolute w-full flex justify-center gap-3 pb-5 z-20"
+        style={{ bottom: "calc(env(safe-area-inset-bottom, 0px) + 1rem)" }}
+      >
         {slides.map((_, i) => (
           <motion.div
             key={i}
             animate={{
-              scale: i === index ? 1.4 : 1,
+              scale: i === index ? 1.3 : 1,
               opacity: i === index ? 1 : 0.5,
             }}
-            className={`w-3 h-3 rounded-full ${i === index ? "bg-black dark:bg-white" : "bg-black/30 dark:bg-white/30"}`}
+            // Indicadores con variantes claro/oscuro
+            className={`w-2.5 h-2.5 rounded-full ${
+              i === index ? "bg-black/60 dark:bg-white/70" : "bg-black/30 dark:bg-white/40"
+            }`}
             transition={{ duration: 0.3 }}
           />
         ))}

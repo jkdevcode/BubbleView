@@ -80,12 +80,12 @@ export const ThemeSwitch: FC<ThemeSwitchProps> = ({
       >
         {theme === "dark" ? (
           <MoonFilledIcon
-            className="text-2xl text-default-400 pointer-events-none shrink-0"
+            className="text-2xl pointer-events-none shrink-0"
             size={22}
           />
         ) : (
           <SunFilledIcon
-            className="text-2xl text-default-400 pointer-events-none shrink-0"
+            className="text-2xl pointer-events-none shrink-0"
             size={22}
           />
         )}
