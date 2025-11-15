@@ -47,7 +47,7 @@ export default function CinematicCarousel() {
     return () => window.removeEventListener("wheel", handleWheel);
   }, []);
 
- return (
+  return (
     <div
       className="relative w-full h-[100dvh] md:h-screen overflow-hidden text-black dark:text-white"
     >
@@ -93,13 +93,13 @@ export default function CinematicCarousel() {
 
       {/* Texto principal */}
       <div className="absolute inset-x-0 bottom-34 md:inset-y-0 md:left-0 z-20 flex flex-col justify-center items-center md:items-start text-center md:text-left px-6 md:pl-16 md:pr-8 py-10 md:max-w-lg">
-        {/* <div className="absolute inset-x-0 top-1/2 -translate-y-1/2 md:inset-y-0 md:left-0 z-20 flex flex-col justify-center items-center md:items-start text-center md:text-left px-6 md:pl-16 md:pr-8 py-10 md:max-w-lg"> */}
+        
         <motion.h1
           key={slides[index].title}
           animate={{ y: 0, opacity: 1 }}
           initial={{ y: 30, opacity: 0 }}
           transition={{ duration: 0.7 }}
-          className="text-3xl sm:text-4xl md:text-5xl font-bold mb-3 md:mb-4 drop-shadow-lg text-black dark:text-white"
+          className="relative text-3xl sm:text-4xl md:text-5xl font-bold mb-3 md:mb-4 text-transparent bg-clip-text bg-gradient-to-r from-stone-800 via-stone-600 to-stone-800 dark:from-blue-300 dark:via-purple-300 dark:to-pink-300 drop-shadow-[0_2px_8px_rgba(0,0,0,0.8)]"
         >
           {slides[index].title}
         </motion.h1>
@@ -109,13 +109,13 @@ export default function CinematicCarousel() {
           animate={{ opacity: 1 }}
           initial={{ opacity: 0 }}
           transition={{ delay: 0.3 }}
-          className="text-base sm:text-lg leading-relaxed text-gray-700 dark:text-gray-300"
+          className="relative text-base sm:text-lg leading-relaxed text-transparent bg-clip-text bg-gradient-to-r from-stone-700 via-stone-500 to-stone-700 dark:from-cyan-200 dark:via-blue-200 dark:to-purple-200 drop-shadow-[0_1px_4px_rgba(0,0,0,0.7)]"
         >
           {slides[index].description}
         </motion.p>
       </div>
 
-      {/* Miniaturas con efecto 3D mejorado (se ajusta bottom para safe-area) */}
+      {/* Miniaturas con efecto 3D mejorado - OPTIMIZADO */}
       <div
         className="absolute pb-5 z-20 flex justify-center md:flex-col md:right-10 md:top-1/2 md:translate-y-[-50%] w-full md:w-auto gap-4 md:gap-6"
         style={{ perspective: "1000px", bottom: "calc(env(safe-area-inset-bottom, 0px) + 3rem)" }}
@@ -135,35 +135,44 @@ export default function CinematicCarousel() {
 
           return (
             <motion.div
-              key={slides[previewIndex].image}
-              layout
+              key={offset}
               animate={{
                 opacity: 1,
                 scale: baseScale,
                 rotateY: rotation,
                 z: zDistance,
-                boxShadow: isCurrent
-                  ? "0 0 20px rgba(255,255,255,0.6)"
-                  : "0 0 8px rgba(255,255,255,0.2)",
               }}
               whileHover={{
                 scale: 1.12,
                 rotateY: rotation + 3,
-                boxShadow: "0 0 25px rgba(255,255,255,0.8)",
-                transition: { duration: 0.3 },
               }}
               whileTap={{ scale: 1.05 }}
               transition={{
-                duration: 0.6,
+                duration: 0.5,
                 ease: [0.43, 0.13, 0.23, 0.96],
               }}
               className={`w-20 h-20 sm:w-24 sm:h-24 rounded-full overflow-hidden ${borderClass} ${shadowClass} cursor-pointer relative group`}
+              style={{
+                willChange: "transform",
+              }}
               onClick={() => setIndex(previewIndex)}
             >
-              <img
+              <motion.img
                 alt={slides[previewIndex].title}
-                className="object-cover w-full h-full transition-all duration-500 group-hover:brightness-110 group-hover:scale-105"
+                className="object-cover w-full h-full"
                 src={slides[previewIndex].image}
+                animate={{
+                  brightness: 1,
+                  scale: 1,
+                }}
+                whileHover={{
+                  brightness: 1.1,
+                  scale: 1.05,
+                }}
+                transition={{ duration: 0.3 }}
+                style={{
+                  willChange: "brightness, transform",
+                }}
               />
               {/* Glow circular interno */}
               <div className="absolute inset-0 rounded-full bg-gradient-to-tr from-white/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />

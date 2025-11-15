@@ -63,7 +63,6 @@ export const Navbar = () => {
           availableLanguages={availableLanguages}
           icon={I18nIcon}
         /> */}
-        <NavbarMenuToggle />
       </NavbarContent>
     </HeroUINavbar>
   );
