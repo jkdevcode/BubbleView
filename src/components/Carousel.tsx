@@ -194,22 +194,27 @@ export default function CinematicCarousel() {
         className="absolute w-full flex justify-center gap-3 pb-5 z-20"
         style={{ bottom: "calc(env(safe-area-inset-bottom, 0px) + 1rem)" }}
       >
-        {slides.map((_, i) => (
-          <motion.div
-            key={i}
-            animate={{
-              scale: i === index ? 1.3 : 1,
-              opacity: i === index ? 1 : 0.5,
-            }}
-            // Indicadores con variantes claro/oscuro
-            className={`w-2.5 h-2.5 rounded-full ${
-              i === index
-                ? "bg-black/60 dark:bg-white/70"
-                : "bg-black/30 dark:bg-white/40"
-            }`}
-            transition={{ duration: 0.3 }}
-          />
-        ))}
+        {slides.map((_, i) => {
+          const isActive = i === index;
+          const activeClass =
+            "w-2.5 h-2.5 rounded-full bg-gradient-to-r from-stone-800 via-stone-600 to-stone-800 dark:from-blue-300 dark:via-purple-300 dark:to-pink-300";
+          // Inactivo: gradiente claro en light mode, gradiente translúcido + borde en dark mode para mejor contraste
+          const inactiveClass =
+            "w-2.5 h-2.5 rounded-full bg-gradient-to-r from-stone-400 via-stone-300 to-stone-400 " +
+            "dark:from-white/30 dark:via-white/20 dark:to-white/30 dark:border dark:border-white/10 dark:shadow-[0_0_6px_rgba(255,255,255,0.04)]";
+
+          return (
+            <motion.div
+              key={i}
+              animate={{
+                scale: isActive ? 1.3 : 1,
+                opacity: isActive ? 1 : 0.6,
+              }}
+              className={isActive ? activeClass : inactiveClass}
+              transition={{ duration: 0.3 }}
+            />
+          );
+        })}
       </div>
     </div>
   );
