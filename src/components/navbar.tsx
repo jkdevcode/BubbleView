@@ -4,7 +4,6 @@ import {
   NavbarBrand,
   NavbarContent,
   NavbarItem,
-  NavbarMenuToggle,
 } from "@heroui/navbar";
 import { useTranslation } from "react-i18next";
 
