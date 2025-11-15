@@ -104,6 +104,16 @@
   "footer-contact-whatsapp": "WhatsApp",
   "footer-contact-support24": "Dedicated Support",
   "footer-rights": "Copyright © {{year}} JosDev",
-  "footer-created": "Created by Jos"
+  "footer-created": "Created by Jos",
 
+  "carousel-oriental-title": "Oriental Lily",
+  "carousel-oriental-desc": "Famous for its large fragrant flowers; many varieties bloom in mid to late summer.",
+  "carousel-asiatic-title": "Asiatic Lily",
+  "carousel-asiatic-desc": "Colorful and hardy varieties, ideal for gardens due to their easy cultivation and abundant blooms.",
+  "carousel-water-title": "Water Lily (Zantedeschia)",
+  "carousel-water-desc": "Not a true Lilium, but shares the elegant flower aesthetic and is popular in floral arrangements.",
+  "carousel-tiger-title": "Tiger Lily (Lilium lancifolium)",
+  "carousel-tiger-desc": "Recognizable by its spotted petals and soft fragrance; attracts pollinators like bees and butterflies.",
+  "carousel-white-title": "White Lily (Lilium candidum)",
+  "carousel-white-desc": "Symbol of purity in many cultures; its white and tubular flowers are very decorative in bouquets."
 }

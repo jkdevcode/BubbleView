@@ -103,6 +103,17 @@
   "footer-contact": "Contact",
   "footer-contact-whatsapp": "WhatsApp",
   "footer-contact-support24": "Support dédié",
-  "footer-rights": "Droits d’auteur © {{year}} JosDev",
-  "footer-created": "Créé par Jos"
+  "footer-rights": "Droits d'auteur © {{year}} JosDev",
+  "footer-created": "Créé par Jos",
+
+  "carousel-oriental-title": "Lis Oriental",
+  "carousel-oriental-desc": "Célèbre pour ses grandes fleurs parfumées; nombreuses variétés fleurissent en mi-fin d'été.",
+  "carousel-asiatic-title": "Lis Asiatique",
+  "carousel-asiatic-desc": "Variétés colorées et robustes, idéales pour les jardins grâce à leur culture facile et floraison abondante.",
+  "carousel-water-title": "Lis d'Eau (Zantedeschia)",
+  "carousel-water-desc": "Pas un vrai Lilium, mais partage l'esthétique de fleur élégante et est populaire dans les arrangements floraux.",
+  "carousel-tiger-title": "Lis Tigré (Lilium lancifolium)",
+  "carousel-tiger-desc": "Reconnaissable par ses pétales tachetés et son parfum délicat; attire les pollinisateurs comme les abeilles et papillons.",
+  "carousel-white-title": "Lis Blanc (Lilium candidum)",
+  "carousel-white-desc": "Symbole de pureté dans de nombreuses cultures; ses fleurs blanches et tubulaires sont très décoratives en bouquets."
 }

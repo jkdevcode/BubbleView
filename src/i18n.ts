@@ -48,6 +48,7 @@ export interface AvailableLanguage {
 export const availableLanguages: AvailableLanguage[] = [
   { code: "en-US", nativeName: "English", isRTL: false, isDefault: true },
   { code: "es-ES", nativeName: "Español", isRTL: false },
+  { code: "fr-FR", nativeName: "Français", isRTL: false },
 ];
 
 const fallbackLng = "en-US";
@@ -88,15 +89,6 @@ i18n
                 break;
               case "es-ES":
                 url = new URL("./locales/base/es-ES.json", import.meta.url);
-                break;
-              case "zh-CN":
-                url = new URL("./locales/base/zh-CN.json", import.meta.url);
-                break;
-              case "ar-SA":
-                url = new URL("./locales/base/ar-SA.json", import.meta.url);
-                break;
-              case "he-IL":
-                url = new URL("./locales/base/he-IL.json", import.meta.url);
                 break;
               default:
                 url = new URL("./locales/base/en-US.json", import.meta.url);

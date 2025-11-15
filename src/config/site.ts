@@ -11,7 +11,6 @@ export const siteConfig = () => ({
     github: "https://github.com/jkdevcode",
     linkedin: "https://www.linkedin.com/in/dario-jose-zamora-vargas-32b9aa318",
     email: "mailto:dajozavargas@gmail.com",
-    docs: "https://heroui.com",
     discord: "https://discord.gg/9b6yyZKmH4",
     sponsor: "https://github.com/sponsors/sctg-development",
   },

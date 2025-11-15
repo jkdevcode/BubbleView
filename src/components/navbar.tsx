@@ -7,13 +7,13 @@ import {
 } from "@heroui/navbar";
 import { useTranslation } from "react-i18next";
 
-/* import { I18nIcon, LanguageSwitch } from "./language-switch"; */
+import { I18nIcon, LanguageSwitch } from "./language-switch";
 
 import { siteConfig } from "@/config/site";
 import { ThemeSwitch } from "@/components/theme-switch";
 import { GithubIcon } from "@/components/icons";
 import { Logo } from "@/components/icons";
-/* import { availableLanguages } from "@/i18n"; */
+import { availableLanguages } from "@/i18n";
 
 export const Navbar = () => {
   const { t } = useTranslation();
@@ -46,10 +46,10 @@ export const Navbar = () => {
             <GithubIcon className="text-default-500" />
           </Link>
           <ThemeSwitch />
-          {/* <LanguageSwitch
+          <LanguageSwitch
             availableLanguages={availableLanguages}
             icon={I18nIcon}
-          /> */}
+          />
         </NavbarItem>
       </NavbarContent>
 
@@ -58,10 +58,10 @@ export const Navbar = () => {
           <GithubIcon className="text-default-500" />
         </Link>
         <ThemeSwitch />
-        {/* <LanguageSwitch
+        <LanguageSwitch
           availableLanguages={availableLanguages}
           icon={I18nIcon}
-        /> */}
+        />
       </NavbarContent>
     </HeroUINavbar>
   );

@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import { useTranslation } from "react-i18next";
 
 import { slideImages, slideInfo } from "../mocks/mock-carousel";
 
@@ -10,15 +11,16 @@ interface Slide {
   image: string;
 }
 
-const slides: Slide[] = slideImages.slice(0, 5).map((img, i) => ({
-  id: i + 1,
-  title: slideInfo[i]?.title ?? `Slide ${i + 1}`,
-  description: slideInfo[i]?.text ?? "",
-  image: img,
-}));
-
 export default function CinematicCarousel() {
+  const { t } = useTranslation();
   const [index, setIndex] = useState(0);
+
+  const slides: Slide[] = slideImages.slice(0, 5).map((img, i) => ({
+    id: i + 1,
+    title: t(slideInfo[i]?.titleKey ?? "carousel-oriental-title"),
+    description: t(slideInfo[i]?.descKey ?? "carousel-oriental-desc"),
+    image: img,
+  }));
 
   useEffect(() => {
     slides.forEach((s) => {

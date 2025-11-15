@@ -104,6 +104,16 @@
   "footer-contact-whatsapp": "WhatsApp",
   "footer-contact-support24": "Soporte dedicado",
   "footer-rights": "Derechos de autor © {{year}} JosDev",
-  "footer-created": "Creado por Jos"
+  "footer-created": "Creado por Jos",
 
+  "carousel-oriental-title": "Lirio Oriental",
+  "carousel-oriental-desc": "Famoso por sus grandes flores fragantes; muchas variedades florecen a mediados-finales del verano.",
+  "carousel-asiatic-title": "Lirio Asiático",
+  "carousel-asiatic-desc": "Variedades coloridas y resistentes, ideales para jardines por su fácil cultivo y abundante floración.",
+  "carousel-water-title": "Lirio de Agua (Zantedeschia)",
+  "carousel-water-desc": "No es un auténtico Lilium, pero comparte la estética de flor elegante y es popular en arreglos florales.",
+  "carousel-tiger-title": "Lirio Tigre (Lilium lancifolium)",
+  "carousel-tiger-desc": "Reconocible por sus pétalos moteados y perfume suave; atrae a polinizadores como abejas y mariposas.",
+  "carousel-white-title": "Lirio Blanco (Lilium candidum)",
+  "carousel-white-desc": "Símbolo de pureza en muchas culturas; sus flores blancas y tubulares son muy decorativas en ramos."
 }
