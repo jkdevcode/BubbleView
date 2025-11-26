@@ -14,7 +14,7 @@ interface Slide {
   };
 }
 
-export default function CinematicCarousel() {
+export default function Carousel() {
   const { t } = useTranslation();
   const [index, setIndex] = useState(0);
   const [screenSize, setScreenSize] = useState<"small" | "desktop">("desktop");
@@ -55,29 +55,6 @@ export default function CinematicCarousel() {
       img.src = s.image[screenSize];
     });
   }, [slides, screenSize]);
-
-  // Autoplay pausable
-  const autoplayRef = useRef<number | null>(null);
-  const pausedRef = useRef(false);
-
-  useEffect(() => {
-    const start = () => {
-      if (autoplayRef.current == null) {
-        autoplayRef.current = window.setInterval(() => {
-          if (!pausedRef.current) setIndex((i) => (i + 1) % slides.length);
-        }, 5000);
-      }
-    };
-
-    start();
-
-    return () => {
-      if (autoplayRef.current != null) {
-        window.clearInterval(autoplayRef.current);
-        autoplayRef.current = null;
-      }
-    };
-  }, [slides.length]);
 
   // Debounce para scroll (rueda) y control de teclas
   const wheelTimeoutRef = useRef<number | null>(null);
@@ -121,13 +98,7 @@ export default function CinematicCarousel() {
   };
 
   return (
-    <div
-      className="relative w-full h-[100dvh] md:h-screen overflow-hidden text-black dark:text-white"
-      onBlur={() => (pausedRef.current = false)}
-      onFocus={() => (pausedRef.current = true)}
-      onMouseEnter={() => (pausedRef.current = true)}
-      onMouseLeave={() => (pausedRef.current = false)}
-    >
+    <div className="relative w-full h-[100dvh] md:h-screen overflow-hidden text-black dark:text-white">
       {/* Leer por lectores de pantalla cuando cambia la slide */}
       <span aria-live="polite" className="sr-only">
         {slides[index].title}
