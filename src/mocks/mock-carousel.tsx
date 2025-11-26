@@ -1,9 +1,24 @@
 export const slideImages = [
-  "imgs/Lirio oriental.jpg",
-  "imgs/Lirio Asiático.jpg",
-  "imgs/Lirio de Agua.jpg",
-  "imgs/Lirio Tigre (Lilium lancifolium).jpg",
-  "imgs/Lirio Blanco (Lilium candidum).jpg",
+  {
+    small: "imgs/Lirio oriental small.webp",
+    desktop: "imgs/Lirio oriental.webp",
+  },
+  {
+    small: "imgs/Lirio Asiático small.webp",
+    desktop: "imgs/Lirio Asiático.webp",
+  },
+  {
+    small: "imgs/Lirio de Agua small.webp",
+    desktop: "imgs/Lirio de Agua.webp",
+  },
+  {
+    small: "imgs/Lirio Tigre (Lilium lancifolium) small.webp",
+    desktop: "imgs/Lirio Tigre (Lilium lancifolium).webp",
+  },
+  {
+    small: "imgs/Lirio Blanco (Lilium candidum) small.webp",
+    desktop: "imgs/Lirio Blanco (Lilium candidum).webp",
+  },
 ];
 
 export const slideInfo = [

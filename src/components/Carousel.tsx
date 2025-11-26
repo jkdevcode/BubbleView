@@ -8,12 +8,32 @@ interface Slide {
   id: number;
   title: string;
   description: string;
-  image: string;
+  image: {
+    small: string;
+    desktop: string;
+  };
 }
 
 export default function CinematicCarousel() {
   const { t } = useTranslation();
   const [index, setIndex] = useState(0);
+  const [screenSize, setScreenSize] = useState<"small" | "desktop">("desktop");
+
+  // Detectar tamaño de pantalla
+  useEffect(() => {
+    const updateScreenSize = () => {
+      if (window.innerWidth < 1024) {
+        setScreenSize("small");
+      } else {
+        setScreenSize("desktop");
+      }
+    };
+
+    updateScreenSize();
+    window.addEventListener("resize", updateScreenSize);
+
+    return () => window.removeEventListener("resize", updateScreenSize);
+  }, []);
 
   // Memoizar slides para evitar recrearlos en cada render y para usar en efectos de preload
   const slides: Slide[] = useMemo(
@@ -27,14 +47,14 @@ export default function CinematicCarousel() {
     [t],
   );
 
-  // Preload imágenes (dependiendo de slides memoizados)
+  // Preload imágenes (dependiendo de slides memoizados y screenSize)
   useEffect(() => {
     slides.forEach((s) => {
       const img = new window.Image();
 
-      img.src = s.image;
+      img.src = s.image[screenSize];
     });
-  }, [slides]);
+  }, [slides, screenSize]);
 
   // Autoplay pausable
   const autoplayRef = useRef<number | null>(null);
@@ -95,6 +115,11 @@ export default function CinematicCarousel() {
     };
   }, [slides.length]);
 
+  // Helper para obtener la imagen correcta según breakpoint
+  const getImageSrc = (slide: Slide): string => {
+    return slide.image[screenSize];
+  };
+
   return (
     <div
       className="relative w-full h-[100dvh] md:h-screen overflow-hidden text-black dark:text-white"
@@ -111,7 +136,7 @@ export default function CinematicCarousel() {
       {/* Fondo cinematográfico con animación */}
       <AnimatePresence mode="wait">
         <motion.img
-          key={slides[index].image}
+          key={getImageSrc(slides[index])}
           animate={{
             opacity: 1,
             scale: 1,
@@ -124,7 +149,7 @@ export default function CinematicCarousel() {
             scale: 1.04,
             filter: "blur(8px) saturate(80%)",
           }}
-          src={slides[index].image}
+          src={getImageSrc(slides[index])}
           transition={{
             // imagen más ágil para que el contenido textual se sincronice mejor
             duration: 0.9,
@@ -230,7 +255,7 @@ export default function CinematicCarousel() {
                   scale: 1,
                 }}
                 className="object-cover w-full h-full"
-                src={slides[previewIndex].image}
+                src={getImageSrc(slides[previewIndex])}
                 style={{
                   willChange: "filter, transform",
                 }}
